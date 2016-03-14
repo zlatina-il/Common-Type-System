@@ -1,0 +1,219 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StudentsTask
+{
+    public class Student : ICloneable, IComparable<Student>
+    {
+        //fields
+        private string firstName;
+        private string middleName;
+        private string lastName;
+        private int ssn;
+        private string address;
+        private int phone;
+        private int course;
+        private string email;
+        private Specialty specialty;
+        private University university;
+        private Faculty faculty;
+
+        //constructor
+        public Student(string firstName, string middleName, string lastName, int ssn, string address, int phone, int course, string email, Specialty specialty, University university, Faculty faculty)
+        {
+            this.firstName = firstName;
+            this.middleName = middleName;
+            this.lastName = lastName;
+            this.ssn = ssn;
+            this.address = address;
+            this.phone = phone;
+            this.course = course;
+            this.email = email;
+            this.specialty = specialty;
+            this.university = university;
+            this.faculty = faculty;
+        }
+
+        public Student Clone()
+        {
+            Student clone = new Student
+                (
+                this.firstName,
+                this.middleName,
+                this.lastName,
+                this.ssn,
+                this.address,
+                this.phone,
+                this.course,
+                this.email,
+                this.specialty,
+                this.university,
+                this.faculty
+                );
+            return clone;
+        }
+
+        object ICloneable.Clone()
+        {
+            return this.Clone();
+        }
+
+        //properties
+        public string FirstName
+        {
+            get { return this.firstName; }
+            set { this.firstName = value; }
+        }
+        public string MiddleName
+        {
+            get { return this.middleName; }
+            set { this.middleName = value; }
+        }
+        public string LastName
+        {
+            get { return this.lastName; }
+            set { this.lastName = value; }
+        }
+        public int SSN
+        {
+            get { return this.ssn; }
+            set { this.ssn = value; }
+        }
+        public string Address
+        {
+            get { return this.address; }
+            set { this.address = value; }
+        }
+        public int Phone
+        {
+            get { return this.phone; }
+            set { this.phone = value; }
+        }
+        public int Course
+        {
+            get { return this.course; }
+            set { this.course = value; }
+        }
+        public string EMail
+        {
+            get { return this.email; }
+            set { this.email = value; }
+        }
+        public Specialty Specialty
+        {
+            get { return this.specialty; }
+            set { this.specialty = value; }
+        }
+        public University University
+        {
+            get { return this.university; }
+            set { this.university = value; }
+        }
+        public Faculty Faculty
+        {
+            get { return this.faculty; }
+            set { this.faculty = value; }
+        }
+
+        //methods
+        public override bool Equals(object param)
+        {
+            Student student = param as Student;
+
+            if (student == null)
+            {
+                return false;
+            }
+
+            if (!Object.Equals(this.firstName, student.firstName))
+            {
+                return false;
+            }
+
+            if (!Object.Equals(this.lastName, student.lastName))
+            {
+                return false;
+            }
+            if (this.ssn != student.ssn)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Student name: ");
+            sb.Append(this.firstName);
+            sb.Append(" ");
+            sb.Append(this.middleName);
+            sb.Append(" ");
+            sb.Append(this.lastName);
+            sb.Append("\r\n");
+            sb.Append("SSN: ");
+            sb.Append(this.ssn.ToString());
+            sb.Append("\r\n");
+            sb.Append("Address: ");
+            sb.Append(this.address);
+            sb.Append("\r\n");
+            sb.Append("Phone Number: ");
+            sb.Append(this.phone.ToString());
+            sb.Append("\r\n");
+            sb.Append("Course: ");
+            sb.Append(this.course.ToString());
+            sb.Append("\r\n");
+            sb.Append("E-mail: ");
+            sb.Append(this.email);
+            sb.Append("\r\n");
+            sb.Append("Specialty: ");
+            sb.Append(this.specialty.ToString());
+            sb.Append("\r\n");
+            sb.Append("University: ");
+            sb.Append(this.university.ToString());
+            sb.Append("Faculty: ");
+            sb.Append("\r\n");
+            sb.Append(this.faculty.ToString());
+            return sb.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return lastName.GetHashCode() ^ ssn.GetHashCode();
+        }
+
+        public static bool operator ==(Student student1, Student student2)
+        {
+            return Student.Equals(student1, student2);
+        }
+
+        public static bool operator !=(Student student1, Student student2)
+        {
+            return !(Student.Equals(student1, student2));
+        }
+
+        public int CompareTo(Student student)
+        {
+            if (this.firstName != student.firstName)
+            {
+                return (String.Compare(this.firstName, student.firstName));
+            }
+            if (this.middleName != student.middleName)
+            {
+                return (String.Compare(this.middleName, student.middleName));
+            }
+            if (this.lastName != student.lastName)
+            {
+                return (String.Compare(this.lastName, student.lastName));
+            }
+            if (this.ssn != student.ssn)
+            {
+                return (this.ssn - student.ssn);
+            }
+            return 0;
+        } 
+    }
+}
