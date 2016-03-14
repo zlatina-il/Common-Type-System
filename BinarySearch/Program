@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BinarySearch
+{
+    class Program
+    {
+        static void Main()
+        {
+            BinarySearchTree<int> tree = new BinarySearchTree<int>();
+            tree.AddElement(10);
+            tree.AddElement(5);
+            tree.AddElement(55);
+            tree.AddElement(27);
+            tree.AddElement(9);
+            tree.AddElement(15);
+
+            BinarySearchTree<int> tree2 = (BinarySearchTree<int>)tree.Clone();
+            Console.WriteLine("Tree: " + tree.ToString());
+            Console.WriteLine("Tree 2: " + tree2.ToString());
+            Console.WriteLine("Tree equals Tree2: " + tree.Equals(tree2));
+            Console.WriteLine("Tree == Tree2: " + (tree == tree2));
+            Console.WriteLine("Tree != Tree2: " + (tree != tree2));
+
+            Console.Write("Traverse with foreach: ");
+            foreach (TreeNode<int> item in tree)
+                Console.Write(item.Value + " ");
+            Console.WriteLine();
+            Console.WriteLine("Tree hash: {0}", tree.GetHashCode());
+            Console.WriteLine("Tree2 hash: {0}", tree2.GetHashCode());
+        }
+    }
+}
