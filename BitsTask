@@ -1,0 +1,126 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BitsTask
+{
+    public class BitArray64 : IEnumerable<int>
+    {
+        //field
+        private ulong number;
+
+        //constructor
+        public BitArray64(object longNumber)
+        {
+            ulong checker;
+            if (ulong.TryParse(longNumber.ToString(), out checker))
+            {
+                this.number = checker;
+            }
+            else
+            {
+                throw new ArgumentException("Enter ulong number!");
+            }
+        }
+
+        //property
+        public ulong Number
+        {
+            get { return this.number; }
+            set { this.number = value; }
+        }
+
+        public IEnumerator<int> GetEnumerator() 
+        {
+            for (int i = 63; i >= 0; i--)
+            {
+                yield return this[i];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator(); 
+        }
+
+        //methods
+        public override bool Equals(object obj)
+        {
+            BitArray64 bitArray = obj as BitArray64; 
+            if (bitArray == null)
+            {
+                return false;
+            }
+            if (!Object.Equals(this.number, bitArray.number))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.number.GetHashCode();
+        }
+
+        public int this[int index]
+        {
+            get
+            {
+                if (index > 63 || index < 0)
+                {
+                    throw new ArgumentException("Enter index!");
+                }
+                return Convert.ToInt32((((ulong)1 << index) & this.number) >> index);
+            }
+        }
+
+        public static bool operator ==(BitArray64 first, BitArray64 second)
+        {
+            return Object.Equals(first, second);
+        }
+
+        public static bool operator !=(BitArray64 first, BitArray64 second)
+        {
+            return !Object.Equals(first, second);
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 63; i >= 0; i--)
+            {
+                sb.Append(this[i]);
+            }
+            return sb.ToString();
+        }
+    }
+    
+    class Program
+    {
+        static void Main()
+        {
+            BitArray64 num1 = new BitArray64(198486198);
+            BitArray64 num2 = new BitArray64(1488895123488);
+            Console.WriteLine(num1);
+
+            foreach (var bit in num1)
+            {
+                Console.Write(bit);
+            }
+            Console.WriteLine();
+
+            Console.Write("num1 = num2 ? ");
+            Console.WriteLine(num1.Equals(num2));
+            Console.Write("num1 != num2 ? ");
+            Console.WriteLine(num1 != num2);
+            Console.Write("Num1 hash code: ");
+            Console.WriteLine(num1.GetHashCode());
+            Console.Write("Num2 hash code: ");
+            Console.WriteLine(num2.GetHashCode());
+        }
+    }
+}
