@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PersonTask
+{
+    public class Person
+    {
+        //fields
+        private string name;
+        private int? age;
+
+        //constructor
+        public Person(string name, int? age = null)
+        {
+            this.name = name;
+            this.age = age;
+        }
+
+        //properties
+        public string Name
+        {
+            get { return this.name; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Enter name!");
+                }
+                this.name = value;
+            }
+        }
+
+        public int? Age 
+        {
+            get { return this.age; }
+            set { this.age = value; }
+        }
+
+        //method
+        public override string ToString()
+        {
+            return string.Format("Name: {0}\n Age: {1}",
+                this.Name, this.Age != null ? this.Age.ToString() : "Undefined");
+        }
+    }
+    
+    class Program
+    {
+        static void Main()
+        {
+            Person p1 = new Person("Nikolai", 21);
+            Console.WriteLine(p1);
+            Person p2 = new Person("Ivan");
+            Console.WriteLine(p2);
+        }
+    }
+    
+}
