@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace StudentsTask
+{
+    class Program
+    {
+        static void Main()
+        {
+            Student st1 = new Student("Plamen", "Dimitrov", "Dimitrov", 123, "Sofia, Nevestina skala 18a",
+            0888888888, 2, "p_nbu@abv.bg", Specialty.Informatics, University.NBU, Faculty.IT);
+            Console.WriteLine(st1);
+            Student st2 = new Student("Krum", "Georgiev", "Dobrev", 1212, "Sofia, Ruski pametnik",
+                0888586758, 4, "k.dobrev@abv.bg", Specialty.Informatics, University.TU, Faculty.IT);
+            Student st3 = new Student("Zlatina", "Naskova", "Ilieva", 151514, "Sofia, Borovo, Planex",
+                0882499876, 2, "zlatina_il@abv.bg", Specialty.Informatics, University.TU, Faculty.IT);
+            Console.WriteLine(st3);
+            Console.WriteLine("----------------------------------------");
+            Student cloneStudent = st1.Clone();
+            Console.WriteLine("Cloned student: {0}", cloneStudent);
+            Console.WriteLine("The first == the cloned student: {0}", st1.Equals(cloneStudent));
+            Console.WriteLine("----------------------------------------");
+
+            cloneStudent.SSN = 2323;
+            Console.WriteLine("Cloned student: {0} has new SSN", cloneStudent);
+            Console.WriteLine("The student who is not cloned is: {0}", st1);
+            Console.WriteLine("The first == the cloned student after changing of cloned's ssn: {0}", st1.Equals(cloneStudent));
+            Console.WriteLine("----------------------------------------");
+
+            List<Student> students = new List<Student>();
+            students.Add(st1);
+            students.Add(st2);
+            students.Add(cloneStudent);
+            students.Add(st3);
+      
+            students.Sort();
+            Console.WriteLine("The sorted students are:");
+            foreach (var student in students)
+            {
+                Console.WriteLine(student);
+            }
+        }
+    }
+}
